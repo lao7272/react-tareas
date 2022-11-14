@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h1>This is great</h1>
+            <p>Welcome to templating using EJS</p>
+            <h3></h3>
+            <form action="/productos" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="name" placeholder="Ingrese el nombre de su procucto" id="name">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Precio</label>
+                    <input type="number" class="form-control" name="price" placeholder="Ingrese el precio de su procucto"
+                        id="price">
+                </div>
+                <div class="mb-3">
+                    <label for="imgUrl" class="form-label">Edad</label>
+                    <input type="text" class="form-control" name="imgUrl" placeholder="Ingrese una imagen (en url) de su procucto" id="imgUrl">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+
+</html>

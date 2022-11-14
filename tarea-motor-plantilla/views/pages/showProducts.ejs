@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h1>Productos</h1>
+            <% if(products.length > 0) { %>
+
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre del producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Imagen</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% products.forEach((prod)=> { %>
+                        <tr>
+
+                            <td><%= prod.name %></td>
+                            <td>$<%= prod.price %></td>
+                            <td><img style="width: 100px" alt="Imagen del producto" src=<%- prod.imgUrl %>></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <div>
+                <button class="btn btn-primary"><a href="productos/cargar-productos" style="color: black; text-decoration: none;">Carga mas productos aqui</a></button>
+            </div>
+            <% } else { %>
+                <h3>No cargaste productos</h3>
+                <button class="btn btn-primary"><a href="productos/cargar-productos" style="color: black; text-decoration: none;">Carga productos aqui</a></button>
+            <% } %>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+
+</html>
