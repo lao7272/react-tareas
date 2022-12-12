@@ -1,5 +1,8 @@
 const express = require('express');
+const createTable = require('./database/createTables');
 const app = express();
+
+createTable();
 
 const productsRouter = require('./src/routes/products');
 

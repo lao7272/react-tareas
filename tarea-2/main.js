@@ -2,8 +2,8 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 const PORT = 8080;
-let arrProd = [];
-//Clase Producto
+
+
 class Product {
     constructor(id, name, brand, price){
         this.id = id;
@@ -11,61 +11,93 @@ class Product {
         this.brand = brand;
         this.price = price
     }
-}
+    async save(object){
+        let data;
 
-// Funciones de FS
-const save = (object) => {
-    arrProd.push(object);
-    fs.writeFile("./products.json", JSON.stringify(arrProd), 'utf-8', err => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(`Producto con id: ${object.id} cargado exitosamente`);
+        try {
+            const res = await fs.promises.readFile('./products.json', 'utf-8');
+            data = JSON.parse(res)
+            
+            
+        } catch (error) {
+            console.error(error)
         }
-    return object.id
-    });
 
-}
+        const arrProd = data ? data : [];
+        console.log(arrProd);
+        
+        const newArrProd = arrProd.find(poke => poke.id == object.id);
 
-const getById = (id) => {
-    fs.promises.readFile('./products.json', 'utf8')
+        if (newArrProd){
+            console.log('Ya existe el producto')
+        } else {
+            
+            arrProd.push(object);
+            fs.writeFile("./products.json", JSON.stringify(arrProd), 'utf-8', err => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(`Producto con id: ${object.id} cargado exitosamente`);
+                }
+            return object.id
+            });
+        }
+        
+    }
+    getById(id){
+        fs.promises.readFile('./products.json', 'utf8')
     .then(data => {
         const arrProduct = JSON.parse(data);
         const prodId = arrProduct.find(prod => prod.id === id);
         console.log(prodId)
     })
     .catch(err => console.log(err));
-};
+    }
+    async getAll(){
+        const res = await fs.promises.readFile('./products.json', 'utf-8');
+        const data = JSON.parse(res);
+        console.log(data);
+        return data
+    }
+    async deleteById(id){
+        let data;
 
-const getAll = async () => {
-    const res = await fs.promises.readFile('./products.json', 'utf-8');
-    const data = JSON.parse(res);
-    console.log(data);
-    return data
-};
-const deleteById = (id) => {
-    
-    fs.promises.readFile('./products.json', 'utf8')
-    .then(data => {
-        const arrProduct = JSON.parse(data);
-        const newProdArr = arrProduct.filter(prod => prod.id !== id);
-        arrProd = newProdArr;
-        fs.writeFile("./products.json", JSON.stringify(newProdArr), 'utf-8', err => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('Producto eliminado');
-            }
-        });
-    })
-    .catch(err => console.log(err));
-};
+        try {
+            const res = await fs.promises.readFile('./products.json', 'utf-8');
+            data = JSON.parse(res)
+            
+            
+        } catch (error) {
+            console.error(error)
+        }
 
-const deleteAll = () => {
-    fs.unlink('./products.json', err => console.error(err));
-    arrProd = [];
-    // fs.writeFile("./products.json", JSON.stringify([]), 'utf-8', err => console.log(err))
-};
+        let arrProd = data ? data : [];
+
+        const newArrProd = arrProd.find(poke => poke.id == id);
+        if(newArrProd){
+            fs.promises.readFile('./products.json', 'utf8')
+        .then(data => {
+            const arrProduct = JSON.parse(data);
+            const newProdArr = arrProduct.filter(prod => prod.id !== id);
+            arrProd = newProdArr;
+            fs.writeFile("./products.json", JSON.stringify(newProdArr), 'utf-8', err => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('Producto eliminado');
+                }
+            });
+        })
+        .catch(err => console.log(err));
+        } else {
+            console.log(`EL producto con id ${id} ha sido eliminado`)
+        }
+        
+        }
+    deleteAll(){
+        fs.unlink('./products.json', err => console.error(err));
+    }
+}
 
 
 
@@ -75,6 +107,11 @@ const product1 = new Product(1, 'zapatilla', 'converse', 20000);
 const product2 = new Product(2, 'zapatilla', 'nike', 23000);
 const product3 = new Product(3, 'zapatilla', 'adidas', 17000);
 const product4 = new Product(4, 'zapatilla', 'puma', 18000);
+product1.deleteById(4);
+// product2.save(product2);
+// product3.save(product3);
+// product4.save(product4);
+
 
 // save(product1);
 // save(product2);
