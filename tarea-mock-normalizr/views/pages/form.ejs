@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    <%- include('../partials/scriptForm'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h1>This is great</h1>
+            <p>Welcome to templating using EJS</p>
+            <h3></h3>
+            <form action="/productos/cargar-productos" method="post" id="formProducts">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="name" placeholder="Ingrese el nombre de su procucto" id="name">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Precio</label>
+                    <input type="number" class="form-control" name="price" placeholder="Ingrese el precio de su procucto"
+                        id="price">
+                </div>
+                <div class="mb-3">
+                    <label for="urlImg" class="form-label">Imagen</label>
+                    <input type="text" class="form-control" name="urlImg" placeholder="Ingrese una imagen (en url) de su procucto" id="urlImg">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+        <div>
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre del producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Imagen</th>
+                    </tr>
+                </thead>
+
+                <tbody id="productList">
+                    
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+
+</body>
+
+</html>

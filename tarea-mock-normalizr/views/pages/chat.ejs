@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+
+    </header>
+    <main class="jumbotron">
+        <form id="chatForm">
+            <div class="mb-3">
+                <input type="text" class="form-control" name="email" placeholder="Ingrese su email ">
+            </div>
+            <div class="mb-3">                
+                <input type="text" class="form-control" name="name" placeholder="Ingrese su nombre ">
+            </div>
+            <div class="mb-3">                
+                <input type="text" class="form-control" name="lastname" placeholder="Ingrese su apellido">
+            </div>
+            <div class="mb-3">
+                <input type="number" class="form-control" name="age" placeholder="Ingrese su edad ">
+            </div>
+            <div class="mb-3">               
+                <input type="text" class="form-control" name="nickname" placeholder="Ingrese su alias">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" name="urlImg" placeholder="Ingrese avatar">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" name="message" placeholder="Ingrese mensaje">
+            </div>
+            
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        <h3>Chat</h3>
+        <h3 id="percentageHeader"></h3>
+        <div class="jumbotron" id="messages">
+
+        </div>
+            
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+    <%- include('../partials/scriptChat'); %>
+</body>
+
+</html>
