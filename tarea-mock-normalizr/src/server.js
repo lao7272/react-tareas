@@ -1,7 +1,12 @@
 import express from 'express';
 import { Server } from 'socket.io';
 import { createServer } from "http";
+import session from 'express-session';
+import dotenv from 'dotenv';
+import MongoStore from 'connect-mongo';
 const app = express();
+dotenv.config();
+
 
 /* CONTAINERS */ 
 
@@ -21,6 +26,7 @@ import { chatSchema } from './daos/chat/NormalizeChatSchema.js';
 import formProductsRouter from './routers/productsRouter.js';
 import chatRouter from './routers/chatRouter.js';
 import productsTestRouter from './routers/productTestRouter.js';
+import loginRouter from './routers/loginRouter.js';
 
 
 app.set('view engine', 'ejs');
@@ -28,7 +34,23 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+/* MONGOSTORE */
 
+app.use(
+    session({
+        store: MongoStore.create({
+            mongoUrl: 'mongodb+srv://testCoder:testCoder@cluster0.8grey69.mongodb.net/?retryWrites=true&w=majority',
+            ttl: 60
+        }),
+        secret: 'shhh',
+        resave: false,
+        saveUninitialized: false,
+        rolling: true,
+        cookie: {
+            maxAge: 60000
+        }
+    })
+);
 
 
 const httpServer = createServer(app);
@@ -69,12 +91,15 @@ socketProducts();
 
 
 app.get('/', (req, res) => {
-    res.render('pages/index.ejs')
+    const sessionName = req.session.user ?? "";
+
+    res.render('pages/index.ejs', {sessionName});
 });
 
 app.use('/chat', chatRouter);
 app.use('/productos', formProductsRouter); 
 app.use('/api', productsTestRouter);
+app.use('/session', loginRouter);
 
 app.all('*', (req, res) => {
     res.render('pages/error.ejs')

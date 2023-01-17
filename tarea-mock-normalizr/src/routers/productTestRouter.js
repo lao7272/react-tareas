@@ -23,8 +23,9 @@ const createProducts = (array) => {
 productsTestRouter.get('/producto-test', async (req, res) => {
     const dbProducts = [];
     createProducts(dbProducts);
-    console.log(dbProducts)
-    res.render('pages/testProducts.ejs', {dbProducts});
+    const sessionName = req.session.user ?? "";
+
+    res.render('pages/testProducts.ejs', {dbProducts, sessionName});
 });
 
 

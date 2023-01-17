@@ -9,14 +9,10 @@
     <header>
         <%- include('../partials/header'); %>
     </header>
-    <main class="container">
+    <main class="jumbotron">
         <% if(sessionName) { %>
-            <div>
-                <h1>Bienvenido <%= sessionName %></h1>
-                <form action="/session/logout" method="get"><input type="submit" value="Logout" class="btn btn-danger"></form>
-            </div>
+            <h1>Hasta luego <%= sessionName %></h1>
         <% } %>
-        <h2>Hola developer</h2>
     </main>
     <footer>
         <%- include('../partials/footer'); %>

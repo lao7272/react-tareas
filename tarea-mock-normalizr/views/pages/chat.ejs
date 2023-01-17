@@ -12,6 +12,10 @@
 
     </header>
     <main class="jumbotron">
+        <% if(sessionName) { %>    
+            <h1><%= sessionName %></h1>
+            <form action="/session/logout" method="get"><input type="submit" value="Logout" class="btn btn-danger"></form>
+        <% } %>
         <form id="chatForm">
             <div class="mb-3">
                 <input type="text" class="form-control" name="email" placeholder="Ingrese su email ">

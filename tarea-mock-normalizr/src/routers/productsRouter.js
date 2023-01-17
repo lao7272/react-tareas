@@ -8,13 +8,14 @@ const productContainer = new FSProduct();
 
 formProductsRouter.get('/', async (req, res) => {
     const dbProducts = await productContainer.getAllProducts() ?? [];
-    res.render('pages/showProducts.ejs', {dbProducts});
+    const sessionName = req.session.user;
+    res.render('pages/showProducts.ejs', {dbProducts, sessionName});
 });
 
 formProductsRouter.get('/cargar-productos', async (req, res) => {
     const dbProducts = await productContainer.getAllProducts() ?? [];
-    console.log(dbProducts)
-    res.render('pages/form.ejs', {dbProducts});
+    const sessionName = req.session.user;
+    res.render('pages/form.ejs', {dbProducts, sessionName});
 });
 
 formProductsRouter.post('/cargar-productos', async (req, res) => {

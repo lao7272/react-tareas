@@ -2,7 +2,8 @@ import { Router } from "express";
 export const chatRouter = Router();
 
 chatRouter.get('/', async (req, res) => {
-    res.render('pages/chat.ejs');
+    const sessionName = req.session.user ?? "";
+    res.render('pages/chat.ejs', {sessionName});
 });
 
 export default chatRouter;

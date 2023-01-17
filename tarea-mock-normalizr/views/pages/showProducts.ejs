@@ -11,7 +11,13 @@
     </header>
     <main>
         <div class="jumbotron">
-            <h1>Productos</h1>
+            <% if(sessionName) { %>
+                <div>
+                    <h1> <%= sessionName %></h1>
+                    <form action="/session/logout" method="get"><input type="submit" value="Logout" class="btn btn-danger"></form>
+                </div>
+            <% } %>
+            <h2>Productos</h2>
             <% if(dbProducts.length > 0) { %>
 
             <table class="table">

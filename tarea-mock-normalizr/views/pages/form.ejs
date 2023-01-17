@@ -13,9 +13,12 @@
     </header>
     <main>
         <div class="jumbotron">
-            <h1>This is great</h1>
-            <p>Welcome to templating using EJS</p>
-            <h3></h3>
+            <% if(sessionName) { %>
+                <div>
+                    <h1> <%= sessionName %></h1>
+                    <form action="/session/logout" method="get"><input type="submit" value="Logout" class="btn btn-danger"></form>
+                </div>
+            <% } %>
             <form action="/productos/cargar-productos" method="post" id="formProducts">
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre</label>
