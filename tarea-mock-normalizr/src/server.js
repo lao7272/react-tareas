@@ -1,12 +1,87 @@
 import express from 'express';
+import session from 'express-session';
+
+import passport from 'passport';
+import { Strategy } from 'passport-local';
+
 import { Server } from 'socket.io';
 import { createServer } from "http";
-import session from 'express-session';
-import dotenv from 'dotenv';
+
 import MongoStore from 'connect-mongo';
+
+import dotenv from 'dotenv';
+
+import bcrypt from 'bcrypt';
+
+
+import User from './daos/users/MongoDBUsers.js';
+const DBUsers = new User();
+
 const app = express();
 dotenv.config();
 
+
+
+
+/* PASSPORT CONFIG */ 
+
+passport.use('register', new Strategy (
+    { passReqToCallback: true }, 
+    async (req, username, password, done) => {
+    const { email } = req.body;
+    
+    const db = await DBUsers.getAllUser();
+    const findUser = db.find(obj =>  obj.username === username && obj.email === email );
+    const comparedPassword = findUser ?  await bcrypt.compare(password, findUser.password) : "";
+    if (findUser && comparedPassword) {
+        return done('Already registered')
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user =  {
+        username,
+        password: hashedPassword,
+        email
+    };
+
+    await DBUsers.saveUser(user);
+    
+    const getDb = await DBUsers.getAllUser()
+    const getUserWithId = getDb.find(obj =>  obj.email == email && obj.password === hashedPassword && obj.username === username ); 
+
+    return done(null, getUserWithId)
+
+}));
+
+passport.use('login', 
+new Strategy({
+    usernameField: "email",
+    passReqToCallback: true
+}, async (req, email, password, done) => {
+    const db =  await DBUsers.getAllUser();
+    const findUser = db.find(obj => obj.email === email);
+    const comparedPassword = findUser ? await bcrypt.compare(password, findUser.password) : "";
+    
+    if (!findUser && !comparedPassword) {
+        return done(null, false)
+    }
+
+    return done(null, findUser)
+}));
+
+// SERIALIZE & DESERIALIZE
+
+passport.serializeUser(function(user, done) {
+    const { _id, username } = user;
+    const newUser = { _id, username } 
+    done(null, newUser);
+});
+passport.deserializeUser(async function(obj, done) {
+    
+    const user = await DBUsers.getUserById(obj._id);
+    done(null, user);
+});
 
 /* CONTAINERS */ 
 
@@ -27,35 +102,40 @@ import formProductsRouter from './routers/productsRouter.js';
 import chatRouter from './routers/chatRouter.js';
 import productsTestRouter from './routers/productTestRouter.js';
 import loginRouter from './routers/loginRouter.js';
+import console from 'console';
 
-
-app.set('view engine', 'ejs');
-
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-
-/* MONGOSTORE */
+/* --------------------------------------------------------------------------- */
 
 app.use(
+    
     session({
         store: MongoStore.create({
-            mongoUrl: 'mongodb+srv://testCoder:testCoder@cluster0.8grey69.mongodb.net/?retryWrites=true&w=majority',
-            ttl: 60
+            mongoUrl: 'mongodb+srv://testCoder:testCoder@cluster0.n83bwto.mongodb.net/?retryWrites=true&w=majority',
+            ttl: 600
         }),
         secret: 'shhh',
         resave: false,
         saveUninitialized: false,
         rolling: true,
         cookie: {
-            maxAge: 60000
+            maxAge: 600000
         }
     })
 );
+app.use(passport.initialize());
+app.use(passport.session());
+app.set('view engine', 'ejs');
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+
+
+
+/* WEBSOCKET */ 
 
 const httpServer = createServer(app);
 const io = new Server(httpServer);
-
 
 const socketProducts = async () => {
 
@@ -88,10 +168,10 @@ const socketProducts = async () => {
 }
 socketProducts();
 
-
+/* ------------------------------------------------------ */ 
 
 app.get('/', (req, res) => {
-    const sessionName = req.session.user ?? "";
+    const sessionName = req.session.passport ? req.session.passport.user.username : "";
 
     res.render('pages/index.ejs', {sessionName});
 });

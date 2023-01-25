@@ -27,7 +27,8 @@ export class MongoDBContainer {
             let productSaved = await objectSavedModel.save();
             console.log(productSaved);            
         } catch (error) {
-            console.log('Error: Ocurrio un error');
+            console.log('Error: Ocurrio un error', error);
+            
         }
     }
 
