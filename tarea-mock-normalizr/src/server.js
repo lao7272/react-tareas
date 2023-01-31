@@ -9,7 +9,7 @@ import { createServer } from "http";
 
 import MongoStore from 'connect-mongo';
 
-import dotenv from 'dotenv';
+import vars from './args/config.js';
 
 import bcrypt from 'bcrypt';
 
@@ -17,8 +17,8 @@ import bcrypt from 'bcrypt';
 import User from './daos/users/MongoDBUsers.js';
 const DBUsers = new User();
 
+const { PORT, MONGO_STORE_URL } = vars;
 const app = express();
-dotenv.config();
 
 
 
@@ -102,7 +102,8 @@ import formProductsRouter from './routers/productsRouter.js';
 import chatRouter from './routers/chatRouter.js';
 import productsTestRouter from './routers/productTestRouter.js';
 import loginRouter from './routers/loginRouter.js';
-import console from 'console';
+import infoRouter from './routers/infoRouter.js';
+import randomRouter from './routers/randomRouter.js';
 
 /* --------------------------------------------------------------------------- */
 
@@ -110,7 +111,7 @@ app.use(
     
     session({
         store: MongoStore.create({
-            mongoUrl: 'mongodb+srv://testCoder:testCoder@cluster0.n83bwto.mongodb.net/?retryWrites=true&w=majority',
+            mongoUrl: MONGO_STORE_URL,
             ttl: 600
         }),
         secret: 'shhh',
@@ -178,16 +179,19 @@ app.get('/', (req, res) => {
 
 app.use('/chat', chatRouter);
 app.use('/productos', formProductsRouter); 
-app.use('/api', productsTestRouter);
+app.use('/api', productsTestRouter,);
 app.use('/session', loginRouter);
+app.use("/info", infoRouter);
+app.use("/random", randomRouter);
 
 app.all('*', (req, res) => {
     res.render('pages/error.ejs')
-})
-const port = 8080;
-httpServer.listen(port, (err) => {
+});
+
+// const PORT = 8080;
+httpServer.listen(PORT, (err) => {
     if (err) throw new Error(`Error en el servidor ${err}`);
-    console.log(`RUNNING http://localhost:${port}`);
+    console.log(`RUNNING http://localhost:${PORT}`);
 });
 
 export default io;

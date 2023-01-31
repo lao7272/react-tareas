@@ -2,7 +2,7 @@
   "name": "tarea-mock-normalizr",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -27,6 +27,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "socket.io": "^4.5.4",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "yargs": "^17.6.2"
   }
 }
