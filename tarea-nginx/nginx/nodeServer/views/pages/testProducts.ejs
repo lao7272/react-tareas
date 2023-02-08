@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <% if(sessionName) { %>    
+                <h1><%= sessionName %></h1>
+                <form action="/session/logout" method="get"><input type="submit" value="Logout" class="btn btn-danger"></form>
+            <% } %>
+            <h2>Productos Test</h2>
+            
+
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre del producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Imagen</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% dbProducts.forEach((prod)=> { %>
+                        <tr>
+
+                            <td><%= prod.name %></td>
+                            <td>$<%= prod.price %></td>
+                            <td><img style="width: 100px" alt="Imagen del producto" src=<%- prod.urlImg %>></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+
+</html>

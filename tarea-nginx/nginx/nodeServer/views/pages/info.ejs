@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <% if(data) { %>
+
+            <div class="showProcessInfo jumbotron">
+                <div class="processInfo">
+                    <b><p>Process Id:</p></b>
+                    <p><%= data.pid %></p>
+                </div>
+
+                <div class="processInfo">
+                    <b><p>Path de ejecucion:</p></b>
+                    <p><%= data.executedPath %></p>
+                </div>
+
+                <div class="processInfo">
+                    <b><p>Memoria total:</p></b>
+                    <p>rss: <%= data.memoryUsage.rss %></p>
+                    <p>heapTotal: <%= data.memoryUsage.heapTotal %></p>
+                    <p>heapUsed: <%= data.memoryUsage.heapUsed %></p>
+                    <p>external: <%= data.memoryUsage.external %></p>
+                    <p>arrayBuffers: <%= data.memoryUsage.arrayBuffers %></p>
+                </div>
+                
+                <div class="processInfo">
+                    <b><p>Numero de procesos activos:</p></b>
+                    <p><%= data.processesNumber%></p>
+                </div>
+
+                <div class="processInfo">
+                    <b><p>Version de node:</p></b>
+                    <p><%= data.nodeVersion %></p>
+                </div>
+
+                <div class="processInfo">
+                    <b><p>Sistema operativo:</p></b>
+                    <p><%= data.operativeSyst %></p>
+                </div>
+
+                <div class="processInfo">
+                    <b><p>Argumentos de entrada:</p></b>
+                    <p><%= data.actualDir %></p>
+                </div>
+            </div>
+
+        <% } %>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+
+</html>

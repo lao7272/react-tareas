@@ -1,0 +1,88 @@
+<script src="https://cdn.socket.io/4.5.3/socket.io.min.js" integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js" integrity="sha384-DzEmeS0zL6sU+CszL3Ytycy/8TMq3+Z1FFXoRjFpXl/6dnE2SLFU8Qr0lRLEWXhV" crossorigin="anonymous"></script>
+
+
+<script >
+    
+    const socket = io();
+
+    /* NORMALIZR */
+
+    const { schema,  denormalize } = normalizr;
+
+    
+    const denormalizeDb =  (normalizedArray, schema) => {
+        const denormalizeDb = denormalize(normalizedArray.result, schema, normalizedArray.entities)
+        return denormalizeDb
+    } 
+
+    const authorSchema = new schema.Entity('authors');
+    const messageSchema = new schema.Entity('messages', {
+        author: authorSchema
+    });
+    const chatSchema = new schema.Entity('chat', {
+        messages: [messageSchema]
+    });
+
+
+
+    /* WEBSOCKET */
+    socket.on('conversation', ({normalizedMessages, percentage}) => {
+
+    
+    const denormalizedData = denormalizeDb(normalizedMessages, chatSchema)
+    console.log('Denormalized', denormalizedData);
+    const divMessages = document.getElementById('messages');
+    const percentageHeader = document.getElementById('percentageHeader')
+    
+    if (percentage < 100) {
+        percentageHeader.innerHTML = `Comprimido al ${Math.floor(percentage)}%`;
+    } else {
+        percentageHeader.innerHTML = `No comprido: (${Math.floor(percentage)}%) `;
+    }
+    divMessages.innerHTML = '';
+        denormalizedData.messages.map((message) => {
+            divMessages.innerHTML += `
+            <div class="m-1" style="">   
+            <p><img  style="width: 40px" src=${message.author.urlImg} alt= "Avatar"> <strong style="color: blue">${message.author.id}</strong> <em style="color: red"> [${message.dateMessage}]: </em><i style="color: green"> "${message.message}"</i></p>
+            </div>
+            `
+        });
+
+    });
+
+    const chatForm = document.getElementById('chatForm');
+
+    chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const date = new Date();
+    const [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()];
+    const [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeconds()];
+
+    const dataForm = new FormData(e.target);
+
+    
+    
+
+    const dateMessage = `${day}/${month}/${year} ${hour}:${minutes}:${seconds}`;
+
+    const message = { 
+            author: {
+                id: dataForm.get("email"),
+                name: dataForm.get("name"),
+                lastname: dataForm.get("lastname"),
+                nickname: dataForm.get("nickname"),
+                age: dataForm.get("age"),
+                urlImg: dataForm.get("urlImg")
+
+            },
+            message: dataForm.get('message'),
+            dateMessage
+    };
+    socket.emit('new-message', message);
+    
+
+});
+    
+    
+</script>

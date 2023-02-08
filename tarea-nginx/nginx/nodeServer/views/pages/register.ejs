@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    <%- include('../partials/scriptForm'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+
+    </header>
+    <main>
+        <div class="jumbotron">            
+            <h2>Register</h2>
+            <form action="/session/registrar" method="post" >
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="username" placeholder="Ingrese el nombre de su procucto" id="username">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Ingrese su email"
+                        id="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" name="password" placeholder="Ingrese su contraseña"
+                        id="password">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+        
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+
+</body>
+
+</html>
