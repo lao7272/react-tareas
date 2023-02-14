@@ -1,0 +1,143 @@
+Statistical profiling result from info-log.log, (1358 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   1178   86.7%          C:\WINDOWS\SYSTEM32\ntdll.dll
+    179   13.2%          C:\Program Files\nodejs\node.exe
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      1    0.1%  100.0%  Function: ^validateString node:internal/validators:159:24
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+      1    0.1%  100.0%  JavaScript
+      0    0.0%    0.0%  C++
+      4    0.3%  400.0%  GC
+   1357   99.9%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   1178   86.7%  C:\WINDOWS\SYSTEM32\ntdll.dll
+
+    179   13.2%  C:\Program Files\nodejs\node.exe
+    151   84.4%    C:\Program Files\nodejs\node.exe
+     30   19.9%      Function: ^compileFunction node:vm:316:25
+     30  100.0%        Function: ^wrapSafe node:internal/modules/cjs/loader:1063:18
+     30  100.0%          Function: ^Module._compile node:internal/modules/cjs/loader:1103:37
+     30  100.0%            Function: ^Module._extensions..js node:internal/modules/cjs/loader:1158:37
+     23   15.2%      Function: ^moduleStrategy node:internal/modules/esm/translators:114:56
+     23  100.0%        Function: ^moduleProvider node:internal/modules/esm/loader:452:28
+     23  100.0%          C:\Program Files\nodejs\node.exe
+     14    9.3%      Function: ^stat node:internal/modules/cjs/loader:157:14
+      8   57.1%        Function: ^Module._findPath node:internal/modules/cjs/loader:534:28
+      7   87.5%          Function: ^Module._resolveFilename node:internal/modules/cjs/loader:894:35
+      7  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:800:24
+      1   12.5%          LazyCompile: ~Module._resolveFilename node:internal/modules/cjs/loader:894:35
+      1  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:800:24
+      6   42.9%        Function: ^tryFile node:internal/modules/cjs/loader:424:17
+      6  100.0%          Function: ^tryExtensions node:internal/modules/cjs/loader:440:23
+      5   83.3%            Function: ^Module._findPath node:internal/modules/cjs/loader:534:28
+      1   16.7%            Function: ^tryPackage node:internal/modules/cjs/loader:378:20
+     12    7.9%      Function: ^readSync node:fs:700:18
+     12  100.0%        Function: ^tryReadSync node:fs:439:21
+     12  100.0%          Function: ^readFileSync node:fs:460:22
+     10   83.3%            Function: ^Module._extensions..js node:internal/modules/cjs/loader:1158:37
+      1    8.3%            LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1158:37
+      1    8.3%            Function: ^cjsPreparseModuleExports node:internal/modules/esm/translators:193:34
+      5    3.3%      Function: ^compileForInternalLoader node:internal/bootstrap/loaders:316:27
+      4   80.0%        Function: ^nativeModuleRequire node:internal/bootstrap/loaders:353:29
+      1   25.0%          Function: ~<anonymous> node:tty:1:1
+      1  100.0%            Function: ^compileForInternalLoader node:internal/bootstrap/loaders:316:27
+      1   25.0%          Function: ~<anonymous> node:child_process:1:1
+      1  100.0%            Function: ^compileForInternalLoader node:internal/bootstrap/loaders:316:27
+      1   25.0%          Function: ~<anonymous> node:_tls_wrap:1:1
+      1  100.0%            Function: ^compileForInternalLoader node:internal/bootstrap/loaders:316:27
+      1   25.0%          Function: ~<anonymous> node:_http_client:1:1
+      1  100.0%            Function: ^compileForInternalLoader node:internal/bootstrap/loaders:316:27
+      1   20.0%        Function: ^compileForPublicLoader node:internal/bootstrap/loaders:263:25
+      1  100.0%          Function: ^loadBuiltinModule node:internal/modules/cjs/helpers:45:27
+      1  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:800:24
+      4    2.6%      Function: ^realpathSync node:fs:2469:22
+      3   75.0%        Function: ^toRealPath node:internal/modules/cjs/loader:433:20
+      3  100.0%          Function: ^tryFile node:internal/modules/cjs/loader:424:17
+      3  100.0%            Function: ^tryExtensions node:internal/modules/cjs/loader:440:23
+      1   25.0%        Function: ^finalizeResolution node:internal/modules/esm/resolve:290:28
+      1  100.0%          Function: ^moduleResolve node:internal/modules/esm/resolve:894:23
+      1  100.0%            Function: ^defaultResolve node:internal/modules/esm/resolve:1034:30
+      4    2.6%      Function: ^openSync node:fs:586:18
+      4  100.0%        Function: ^readFileSync node:fs:460:22
+      3   75.0%          Function: ^Module._extensions..js node:internal/modules/cjs/loader:1158:37
+      3  100.0%            Function: ^Module.load node:internal/modules/cjs/loader:1015:33
+      1   25.0%          LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1158:37
+      1  100.0%            LazyCompile: ~Module.load node:internal/modules/cjs/loader:1015:33
+      4    2.6%      C:\Program Files\nodejs\node.exe
+      1   25.0%        LazyCompile: ~parse C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\bytes\index.js:141:15
+      1  100.0%          LazyCompile: ~json C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\body-parser\lib\types\json.js:50:15
+      1  100.0%            Script: ~<anonymous> file:///C:/Users/laslo/OneDrive/Escritorio/programacion/coderhouse/backend/tareas/tarea-mock-normalizr/src/server.js:1:1
+      1   25.0%        LazyCompile: ~getStack C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\depd\index.js:381:19
+      1  100.0%          LazyCompile: ~depd C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\depd\index.js:103:15
+      1  100.0%            Function: ~<anonymous> C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\body-parser\index.js:1:1
+      1   25.0%        Function: ~<anonymous> C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\express\lib\router\route.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile node:internal/modules/cjs/loader:1103:37
+      1  100.0%            LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1158:37
+      1   25.0%        Function: ^compileFunction node:vm:316:25
+      1  100.0%          Function: ^wrapSafe node:internal/modules/cjs/loader:1063:18
+      1  100.0%            Function: ^Module._compile node:internal/modules/cjs/loader:1103:37
+      3    2.0%      LazyCompile: ~configSecureContext node:internal/tls/secure-context:124:29
+      3  100.0%        LazyCompile: ~createSecureContext node:_tls_common:99:29
+      3  100.0%          LazyCompile: ~connect node:_tls_wrap:1605:35
+      3  100.0%            LazyCompile: ~makeConnection C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\mongodb\lib\cmap\connect.js:256:24
+      3    2.0%      Function: ^read node:internal/modules/package_json_reader:16:14
+      3  100.0%        Function: ^readPackage node:internal/modules/cjs/loader:319:21
+      1   33.3%          LazyCompile: ~resolveExports node:internal/modules/cjs/loader:512:24
+      1  100.0%            Function: ^Module._findPath node:internal/modules/cjs/loader:534:28
+      1   33.3%          LazyCompile: *Module._findPath node:internal/modules/cjs/loader:534:28
+      1  100.0%            Function: ^Module._resolveFilename node:internal/modules/cjs/loader:894:35
+      1   33.3%          Function: ^resolveExports node:internal/modules/cjs/loader:512:24
+      1  100.0%            Function: ^Module._findPath node:internal/modules/cjs/loader:534:28
+      3    2.0%      Function: ^nativeModuleRequire node:internal/bootstrap/loaders:353:29
+      1   33.3%        LazyCompile: ~initializeSourceMapsHandlers node:internal/process/pre_execution:574:38
+      1  100.0%          LazyCompile: ~prepareMainThreadExecution node:internal/process/pre_execution:36:36
+      1  100.0%            Function: ~<anonymous> node:internal/main/run_main_module:1:1
+      1   33.3%        Function: ~<anonymous> node:internal/modules/esm/loader:1:1
+      1  100.0%          Function: ^nativeModuleRequire node:internal/bootstrap/loaders:353:29
+      1  100.0%            Function: ~<anonymous> node:internal/process/esm_loader:1:1
+      1   33.3%        Function: ~<anonymous> node:internal/modules/esm/get_format:1:1
+      1  100.0%          Function: ^nativeModuleRequire node:internal/bootstrap/loaders:353:29
+      1  100.0%            Function: ~<anonymous> node:internal/modules/esm/resolve:1:1
+      2    1.3%      LazyCompile: ~isatty node:tty:42:16
+      1   50.0%        LazyCompile: ~useColors C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\send\node_modules\debug\src\node.js:75:19
+      1  100.0%          LazyCompile: ~createDebug C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\send\node_modules\debug\src\debug.js:63:21
+      1  100.0%            Function: ~<anonymous> C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\send\index.js:1:1
+      1   50.0%        LazyCompile: ~useColors C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\express\node_modules\debug\src\node.js:75:19
+      1  100.0%          LazyCompile: ~createDebug C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\express\node_modules\debug\src\debug.js:63:21
+      1  100.0%            Function: ~<anonymous> C:\Users\laslo\OneDrive\Escritorio\programacion\coderhouse\backend\tareas\tarea-mock-normalizr\node_modules\express\lib\view.js:1:1
+      2    1.3%      LazyCompile: *resolve node:path:158:10
+      1   50.0%        LazyCompile: *Module._findPath node:internal/modules/cjs/loader:534:28
+      1  100.0%          Function: ^Module._resolveFilename node:internal/modules/cjs/loader:894:35
+      1  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:800:24
+      1   50.0%        Function: ^Module._findPath node:internal/modules/cjs/loader:534:28
+      1  100.0%          Function: ^Module._resolveFilename node:internal/modules/cjs/loader:894:35
+      1  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:800:24
+      2    1.3%      Function: ^readPackage node:internal/modules/cjs/loader:319:21
+      2  100.0%        Function: ^resolveExports node:internal/modules/cjs/loader:512:24
+      2  100.0%          Function: ^Module._findPath node:internal/modules/cjs/loader:534:28
+      1   50.0%            LazyCompile: ~Module._resolveFilename node:internal/modules/cjs/loader:894:35
+      1   50.0%            Function: ^Module._resolveFilename node:internal/modules/cjs/loader:894:35
+      3    1.7%    Function: ^wrapSafe node:internal/modules/cjs/loader:1063:18
+      3  100.0%      Function: ^Module._compile node:internal/modules/cjs/loader:1103:37
+      3  100.0%        Function: ^Module._extensions..js node:internal/modules/cjs/loader:1158:37
+      3  100.0%          Function: ^Module.load node:internal/modules/cjs/loader:1015:33
+      3  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:800:24
+
