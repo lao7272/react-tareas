@@ -53,5 +53,15 @@ db.products.estimatedDocumentCount();
 
 
 /* 6 */
-db.createUser({user: 'pepe', pwd: 'asd456', roles: [{role: 'read', db: 'ecommerce'}]});
+db.createUser(
+    {
+        user: 'pepe',
+        pwd: 'asd456',
+        roles: [
+            {
+                role: 'read',
+                db: 'ecommerce'
+            }
+        ]
+});
 

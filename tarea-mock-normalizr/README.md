@@ -17,3 +17,8 @@ node src/performance/benchmark.js
 
 0x src/server.js 8080
 
+
+CONCLUSION 
+
+En conclusion, como hemos visto en clase, las funciones asincronas y los callbacks son mucho mas optimos a la hora de correr la aplicacion.
+
